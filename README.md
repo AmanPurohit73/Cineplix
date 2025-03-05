@@ -1,4 +1,4 @@
-**NetflixGPT Summary**  
+NetflixGPT Summary  
 
 NetflixGPT is an AI-enhanced streaming platform that integrates GPT-powered features into the traditional Netflix experience. This project aims to provide an advanced, interactive, and personalized content discovery system by leveraging artificial intelligence.  
 
