@@ -1,12 +1,12 @@
-# React + Vite
+NetflixGPT Summary  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NetflixGPT is an AI-enhanced streaming platform that integrates GPT-powered features into the traditional Netflix experience. This project aims to provide an advanced, interactive, and personalized content discovery system by leveraging artificial intelligence.  
 
-Currently, two official plugins are available:
+### **Key Features:**  
+- **AI-Powered Recommendations:** Uses GPT-based conversational AI to provide more intuitive and personalized movie/TV show suggestions.  
+- **Smart Search & Filters:** Allows users to find content through natural language queries (e.g., *"Find me a sci-fi thriller with time travel elements."*).  
+- **Auto-Generated Summaries & Reviews:** Generates concise summaries, reviews, and insights based on user preferences.  
+- **Interactive Chatbot:** Engages users in real-time conversations about movies, shows, and recommendations.  
+- **Enhanced Accessibility:** Provides AI-driven subtitles, translations, and summaries for better inclusivity.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+NetflixGPT combines AI-driven intelligence with an engaging and user-friendly interface, redefining the way users interact with streaming content. This project enhances content exploration, making it smarter, faster, and more immersive.
