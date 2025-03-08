@@ -1,28 +1,72 @@
-import React, { useRef } from 'react'
-import Header from './Header'
-import { useState } from 'react'
+import React, { useRef } from "react";
+import Header from "./Header";
+import { useState } from "react";
 import checkValidData from "../utils/validate";
+import {createUserWithEmailAndPassword,signInWithEmailAndPassword, updateProfile,} from "firebase/auth";
+import auth from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+  const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    const [isSignInForm ,setIsSignInForm] = useState(true)
 
-    const [errorMessage, setErrorMessage] = useState(null)
+  const name = useRef(null)
+  const email = useRef(null);
+  const password = useRef(null);
 
-    const email = useRef(null)
-    const password = useRef(null)
+  const navigate = useNavigate()
 
-    const toggleSignUpForm = () => {
-        setIsSignInForm(!isSignInForm)
-    }
+  const toggleSignUpForm = () => {
+    setIsSignInForm(!isSignInForm);
+  };
 
-    const handleButtonClick =() => {
+  const handleButtonClick = () => {
+    const message = checkValidData(email.current.value, password.current.value);
+    setErrorMessage(message);
+
+    if (message) return;
+
+    if (!isSignInForm) {
+      //Sign UP
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          navigate("/browse")
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setErrorMessage(errorCode + "/" + errorMessage);
+        });
         
-        const message = checkValidData(email.current.value, password.current.value)
-        setErrorMessage(message)
-        
+    } else {
+      //Sign IN
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          navigate("/browse")
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "/" + errorMessage);
+        });
     }
-
+  };
 
   return (
     <div>
@@ -35,32 +79,41 @@ const Login = () => {
           alt=""
         />
       </div>
-      <form onSubmit={(e) => {e.preventDefault}} className="absolute p-10 w-3/12 bg-black/80 my-50 mx-auto right-0 left-0 text-white rounded-3xl">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="absolute p-10 w-3/12 bg-black/80 my-50 mx-auto right-0 left-0 text-white rounded-3xl"
+      >
         <h1 className="font-extrabold text-3xl py-4">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
-        {!isSignInForm &&<input
-          type="text"
-          placeholder="Name"
-          className="p-4 my-2 w-full bg-gray-800 rounded-md "
-        />}
+        {!isSignInForm && (
+          <input
+            type="text"
+            placeholder="Name"
+            className="p-4 my-2 w-full bg-gray-800 rounded-md"
+          />
+        )}
         <input
-        ref={email}
+          ref={email}
           type="text"
           placeholder="Email address"
-          className="p-4 my-2 w-full bg-gray-800 rounded-md "
+          className="p-4 my-2 w-full bg-gray-800 rounded-md"
         />
         <input
-        ref={password}
+          ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 my-2 w-full bg-gray-800 rounded-md "
+          className="p-4 my-2 w-full bg-gray-800 rounded-md"
         />
 
-            <p className='text-red-500 font-bold text-lg p-2 text-center' >{errorMessage}</p>
+        <p className="text-red-500 font-bold text-lg p-2 text-center">
+          {errorMessage}
+        </p>
 
-
-        <button className="p-4 my-2 bg-red-600 w-full rounded-lg cursor-pointer font-bold text-lg" onClick={handleButtonClick}>
+        <button
+          className="p-4 my-2 bg-red-600 w-full rounded-lg cursor-pointer font-bold text-lg"
+          onClick={handleButtonClick}
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
 
@@ -75,6 +128,6 @@ const Login = () => {
       </form>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
