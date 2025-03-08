@@ -54,6 +54,8 @@ const Header = () => {
         alt="Logo"
       />
       {user && (
+
+
         <div className="flex p-2">
           <img
             className="w-15 h-15 "
